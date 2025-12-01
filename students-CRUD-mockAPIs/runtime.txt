@@ -1,0 +1,2 @@
+# Python version for Azure App Service
+python-3.11
