@@ -16,60 +16,28 @@ NOTE FOR MAINTAINER (Aman):
   <img src="./assets/python-animated.gif" alt="Python Logo" width="120" style="margin:0 10px;"/>
   <img src="./assets/azure-rotating.gif" alt="Azure Logo" width="120" style="margin:0 10px;"/>
 
+<div align="center">
+
   <h1 align="center">✨ Azure Cosmos DB – Student CRUD API</h1>
+  <h3 align="center">Complete Full-Stack Solution with React Frontend + Flask Backend</h3>
 
   <p align="center">
-    <i>Fully animated • Colorful • Modern • Student-friendly Open Source Project</i>
+    <i>Professional • Production-Ready • Modern • Student-Friendly Open Source Project</i>
   </p>
 
   <!-- 🏷 BADGES -->
   <p>
+    <img src="https://img.shields.io/badge/React-18.2-61DAFB?style=for-the-badge&logo=react&logoColor=white"/>
     <img src="https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
     <img src="https://img.shields.io/badge/Flask-Backend-black?style=for-the-badge&logo=flask&logoColor=white"/>
     <img src="https://img.shields.io/badge/Azure-Cosmos%20DB-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Material--UI-Latest-007FFF?style=for-the-badge&logo=mui&logoColor=white"/>
     <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge"/>
   </p>
 
-  <img src="./assets/neon-divider.gif" alt="Divider" width="80%"/>
-
   <p align="center">
-    <b>Make your first contribution. Learn real-world Cloud + Backend + Azure Cosmos DB.</b>
+    <b>Full-stack learning project: React + TypeScript + Material-UI + Flask + Azure Cosmos DB</b>
   </p>
-
-  <img src="./assets/rocket-launch.gif" alt="Rocket" width="150"/>
-
-</div>
-
----
-
-<div align="center">
-
-### 🧭 Quick Navigation
-
-</div>
-
-<div align="center">
-
-<table>
-  <tr>
-    <td><a href="#-project-overview">🎯 Project Overview</a></td>
-    <td><a href="#-getting-started">🚀 Getting Started</a></td>
-    <td><a href="#-development-setup">🛠️ Dev Setup</a></td>
-  </tr>
-  <tr>
-    <td><a href="#️-making-changes">✏️ Making Changes</a></td>
-    <td><a href="#-testing">🧪 Testing</a></td>
-    <td><a href="#-submitting-changes">📤 Submitting PRs</a></td>
-  </tr>
-  <tr>
-    <td><a href="#-code-standards">📐 Code Standards</a></td>
-    <td><a href="#-reporting-bugs">🐛 Reporting Bugs</a></td>
-    <td><a href="#-feature-requests">💡 Feature Requests</a></td>
-  </tr>
-  <tr>
-    <td colspan="3"><a href="#-code-of-conduct">📜 Code of Conduct</a> • <a href="#-questions">❓ Need Help?</a></td>
-  </tr>
-</table>
 
 </div>
 
@@ -77,18 +45,27 @@ NOTE FOR MAINTAINER (Aman):
 
 ## 🎯 Project Overview
 
-<div align="center">
+**Azure Cosmos DB Student CRUD API** is a complete full-stack application:
 
-<img src="./assets/student-crud-animated.gif" alt="Student CRUD Animated" width="220"/>
+### 🎨 **Frontend (React + TypeScript)**
+- Modern Material-UI design
+- Professional table with sorting & pagination
+- Form validation & error handling
+- Dark mode support
+- Real-time notifications
+- Responsive design
 
-</div>
+### 🔌 **Backend (Flask)**
+- RESTful API with 6 endpoints
+- CORS enabled for frontend integration
+- Comprehensive error handling
+- Environment-based configuration
 
-**Azure Cosmos DB Student CRUD API** is a backend service built with **Flask + Azure Cosmos DB** to manage student data:
-
-- 🧑‍🎓 Create / Read / Update / Delete students  
-- ☁️ Powered by Azure Cosmos DB (NoSQL)  
-- 🧪 Perfect for learning **APIs, Cloud, Databases & Testing**  
-- 🤝 Made to be beginner-friendly for first-time contributors  
+### ☁️ **Database (Azure Cosmos DB)**
+- NoSQL document database
+- Partition key optimization
+- Scalable architecture
+- Real-world cloud integration  
 
 ---
 
@@ -121,13 +98,27 @@ azure4/
 ├── README.md                           # This file
 ├── .env.example                        # Environment variables template
 │
-└── students-CRUD-mockAPIs/             # Main Application
+├── frontend/                           # React TypeScript Frontend
+│   ├── src/
+│   │   ├── App.tsx                    # Main component with state & API
+│   │   ├── types.ts                   # TypeScript interfaces
+│   │   ├── index.css                  # Global styles & animations
+│   │   └── components/
+│   │       ├── StudentTable.tsx       # Table with sorting & pagination
+│   │       ├── StudentDialog.tsx      # Create/Edit form with validation
+│   │       ├── DeleteConfirmationDialog.tsx
+│   │       └── Snackbar.tsx           # Toast notifications
+│   ├── package.json                   # npm dependencies
+│   ├── vite.config.ts                 # Vite configuration
+│   └── tsconfig.json                  # TypeScript configuration
+│
+└── students-CRUD-mockAPIs/             # Flask Backend
     ├── app.py                          # Flask REST API (6 endpoints)
     ├── connect.py                      # Cosmos DB connection
     ├── seed_data.py                    # Sample data loader
-    ├── requirements.txt                # Dependencies
+    ├── requirements.txt                # Python dependencies
     ├── runtime.txt                     # Python runtime version
-    ├── README.md                       # Setup guide
+    ├── README.md                       # Backend setup guide
     └── .github/workflows/              # CI/CD pipelines
 ```
 
@@ -172,6 +163,112 @@ python app.py
 ```
 
 Server will run at: `http://127.0.0.1:8000`
+
+## 🎨 Frontend (React + TypeScript + Material-UI)
+
+A professional, production-ready React frontend for the student management system.
+
+### Frontend Prerequisites
+- Node.js 16+
+- npm or yarn
+
+### Frontend Setup
+
+1. **Install dependencies**
+```bash
+cd frontend
+npm install
+```
+
+2. **Run development server**
+```bash
+npm run dev
+```
+
+Frontend will run at: `http://localhost:5173`
+
+### Frontend Features
+
+✨ **Modern UI/UX**
+- Material-UI 5.15 components for professional styling
+- Dark/Light theme toggle
+- Responsive design for all devices
+- Smooth animations and transitions
+
+🔄 **Data Management**
+- Real-time student list with auto-refresh
+- Sorting by Name, Branch, Roll, GPA
+- Pagination (5, 10, 25, 50 rows)
+- Color-coded GPA display (Green: 8+, Yellow: Lower)
+
+✅ **Form Validation**
+- Roll number required and unique
+- Name and branch validation
+- GPA range constraint (0-10)
+- Real-time error messages
+
+🔔 **User Feedback**
+- Toast notifications for all actions
+- Success/Error/Warning alerts
+- 5-second auto-dismiss
+- Professional dialog confirmations
+
+💾 **CRUD Operations**
+- Create new students with validation
+- Edit existing student information
+- Delete with confirmation dialog
+- Immediate UI updates
+
+### Frontend Stack
+
+```
+frontend/
+├── src/
+│   ├── App.tsx                 # Main React component
+│   ├── types.ts                # TypeScript interfaces
+│   ├── index.css               # Global styles
+│   └── components/
+│       ├── StudentTable.tsx    # Table with sorting/pagination
+│       ├── StudentDialog.tsx   # Create/Edit form
+│       ├── DeleteConfirmationDialog.tsx
+│       └── Snackbar.tsx        # Toast notifications
+├── package.json                # Dependencies
+├── vite.config.ts              # Vite configuration
+└── tsconfig.json               # TypeScript config
+```
+
+### Frontend Dependencies
+
+- **React** 18.2 - UI library
+- **Material-UI** 5.15 - Professional components
+- **TypeScript** 5.0+ - Type safety
+- **Axios** 1.6.2 - HTTP client
+- **Vite** - Fast build tool
+
+### Running Both Backend & Frontend
+
+**Terminal 1 (Backend):**
+```bash
+cd students-CRUD-mockAPIs
+python app.py
+```
+
+**Terminal 2 (Frontend):**
+```bash
+cd frontend
+npm run dev
+```
+
+Then open: `http://localhost:5173`
+
+### Frontend Build
+
+For production:
+```bash
+cd frontend
+npm run build
+npm run preview  # Preview production build
+```
 
 ## 📚 API Endpoints
 
@@ -257,14 +354,24 @@ See `requirements.txt` for complete list
 
 ## 🎯 Features
 
+**Backend**
 ✅ Complete CRUD operations  
 ✅ Azure Cosmos DB integration  
-✅ RESTful API design  
-✅ Error handling  
+✅ RESTful API design (6 endpoints)  
+✅ Comprehensive error handling  
 ✅ Environment-based configuration  
 ✅ Sample data loading  
 ✅ Production-ready code  
-✅ Comprehensive documentation  
+
+**Frontend**
+✅ Professional Material-UI design  
+✅ Full CRUD UI with validation  
+✅ Advanced table (sorting, pagination)  
+✅ Dark/Light theme support  
+✅ TypeScript type safety  
+✅ Real-time error notifications  
+✅ Responsive design  
+✅ Delete confirmation dialogs  
 
 ## 🛠️ Development
 
