@@ -1,5 +1,8 @@
 import os
 from azure.cosmos import CosmosClient, PartitionKey, exceptions
+from dotenv import load_dotenv
+
+load_dotenv()
 
 COSMOS_URI = os.getenv("COSMOS_URI", "https://your-account.documents.azure.com:443/")
 COSMOS_KEY = os.getenv("COSMOS_KEY", "your-cosmos-db-key")

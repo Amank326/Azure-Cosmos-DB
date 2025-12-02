@@ -1,0 +1,243 @@
+# Cline AI Rules for Azure Cosmos DB Student Management System
+
+## Project Overview
+- Full-stack application: React (TypeScript) + Flask + Azure Cosmos DB
+- Frontend: Modern, animated UI with Material-UI and Framer Motion
+- Backend: RESTful API with 6 endpoints
+- Database: Azure Cosmos DB (NoSQL)
+
+## Code Style & Conventions
+
+### Frontend (React/TypeScript)
+- Use functional components with hooks (useState, useCallback, useEffect)
+- Follow Material-UI component patterns
+- Use TypeScript for all type definitions
+- Component file structure: `ComponentName.tsx` in `src/components/`
+- Import statements: absolute paths where possible
+- Use Framer Motion for animations and transitions
+- Props interface naming: `ComponentNameProps`
+
+### Backend (Flask/Python)
+- Use blueprints for route organization
+- Environment variables for sensitive data
+- Error handling with try-catch blocks
+- Input validation before database operations
+- CORS enabled for frontend communication
+- RESTful endpoint naming conventions
+
+### Database (Azure Cosmos DB)
+- Partition key: `/branch` for optimal query performance
+- Document structure: `{id, roll, name, branch, gpa}`
+- Roll number must be unique per document
+- GPA constraint: 0-10 range
+
+## File Organization
+
+```
+root/
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── StudentTable.tsx
+│   │   │   ├── StudentDialog.tsx
+│   │   │   ├── DeleteConfirmationDialog.tsx
+│   │   │   └── Snackbar.tsx
+│   │   ├── App.tsx
+│   │   ├── types.ts
+│   │   └── index.css
+│   ├── vite.config.ts
+│   └── package.json
+│
+├── students-CRUD-mockAPIs/
+│   ├── app.py (6 REST endpoints)
+│   ├── connect.py (Cosmos DB connection)
+│   ├── seed_data.py
+│   └── requirements.txt
+│
+└── Documentation files (*.md)
+```
+
+## Frontend Component Architecture
+
+### App.tsx (Root Component)
+- State management: students, loading, error, dialogs, theme
+- Theme configuration: Light/Dark mode with Material-UI
+- API calls: axios for HTTP requests
+- Dialog management: create, edit, delete operations
+
+### StudentTable.tsx
+- Sorting: by name, branch, roll, GPA
+- Pagination: 5, 10, 25, 50 rows per page
+- Animations: Framer Motion row animations
+- Responsive design
+
+### StudentDialog.tsx
+- Form validation: roll (required, unique), name (required), branch, GPA (0-10)
+- Error display with real-time clearing
+- Edit mode: disable roll number field
+
+### DeleteConfirmationDialog.tsx
+- Warning icon and message
+- Confirmation before deletion
+- Student name display
+
+### Snackbar.tsx
+- Notification types: success, error, warning, info
+- Auto-dismiss: 5 seconds
+- Bottom-right positioning
+
+## API Endpoints
+
+### GET `/` 
+Returns welcome message
+
+### GET `/students`
+- Returns all students with pagination support
+- Response: `{success: bool, students: Student[]}`
+
+### GET `/student/<roll>`
+- Returns specific student by roll number
+- Response: `{success: bool, student: Student}`
+
+### POST `/student`
+- Creates new student
+- Body: `{roll, name, branch, gpa}`
+- Validation: roll unique, name required, GPA 0-10
+
+### PUT `/student/<roll>`
+- Updates existing student
+- Body: partial student object (any field except roll)
+- Returns updated student
+
+### DELETE `/student/<roll>`
+- Deletes student
+- Returns success message
+
+## Best Practices
+
+### Code Quality
+- TypeScript strict mode enabled
+- No console errors or warnings
+- Proper error handling in all async operations
+- Descriptive variable and function names
+
+### UI/UX
+- Responsive design (mobile, tablet, desktop)
+- Dark mode support with persistence
+- Smooth animations and transitions
+- Loading and error states handled
+- Form validation feedback
+- Accessibility considerations (alt text, aria labels)
+
+### Performance
+- Component memoization where needed
+- Efficient re-renders
+- Image optimization
+- Code splitting ready with Vite
+- Lazy loading components where applicable
+
+### Security
+- Environment variables for API URL and sensitive data
+- No hardcoded credentials
+- Input validation on frontend and backend
+- CORS properly configured
+- SQL injection prevention (Cosmos DB SDK handles it)
+
+## Development Workflow
+
+### Adding New Features
+1. Define TypeScript types in `types.ts`
+2. Create component in `src/components/`
+3. Import and use in `App.tsx`
+4. Add animations with Framer Motion
+5. Update styles in component or `index.css`
+6. Test with both light and dark modes
+
+### Modifying Backend
+1. Update endpoint in `app.py`
+2. Update API documentation
+3. Test with curl or Postman
+4. Update frontend if needed
+
+### Deployment
+1. Run `npm run build` in frontend
+2. Deploy `dist/` to hosting
+3. Deploy backend to chosen platform
+4. Update API URL if needed
+5. Test all endpoints
+
+## Important Notes
+
+- API URL: `http://127.0.0.1:8000` (development)
+- Frontend dev server: `http://localhost:5173`
+- Always maintain TypeScript strict mode
+- Keep .env credentials out of git
+- Use .env.example for credentials template
+- Run both backend and frontend for full testing
+- Document any breaking changes
+
+## Dependencies to Maintain
+
+### Frontend
+- react@18.2.0
+- typescript@5.0+
+- @mui/material@5.15.0
+- framer-motion@latest
+- axios@1.6.2
+- vite@5.0+
+
+### Backend
+- Flask@3.0.0
+- azure-cosmos@4.3.1+
+- python-dotenv@1.0.0+
+- Flask-CORS@4.0.0+
+
+## Testing Approach
+
+### Frontend Testing
+- Test form validation (all fields)
+- Test sorting and pagination
+- Test edit and delete operations
+- Test theme toggle
+- Test responsive design
+- Test dark mode persistence
+
+### Backend Testing
+- Test all 6 endpoints
+- Test validation errors
+- Test Cosmos DB connection
+- Test error responses
+- Use curl or Postman
+
+## Common Issues & Solutions
+
+### Issue: Cannot connect to backend
+**Solution**: 
+- Ensure backend is running: `python app.py`
+- Check API URL in `App.tsx`
+- Verify CORS is enabled in Flask
+- Check network connectivity
+
+### Issue: Module not found errors
+**Solution**:
+- Run `npm install` in frontend directory
+- Run `pip install -r requirements.txt` in backend
+- Clear node_modules and reinstall if needed
+
+### Issue: Dark mode not persisting
+**Solution**:
+- Add localStorage implementation for theme
+- Check browser privacy settings
+- Ensure cookies are enabled
+
+## Performance Targets
+- First Contentful Paint: < 2s
+- Time to Interactive: < 4s
+- Lighthouse Score: > 80
+- Bundle Size: < 500KB (gzipped)
+
+---
+
+**Last Updated**: December 2025
+**Status**: Production Ready
+**Maintainer**: AI Assistant (GitHub Copilot)

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 import {
   AppBar,
   Toolbar,
@@ -48,16 +49,48 @@ const App: React.FC = () => {
     palette: {
       mode: isDarkMode ? 'dark' : 'light',
       primary: {
-        main: '#1976d2',
+        main: '#0066ff',
+        light: '#4d9fff',
+        dark: '#0052cc',
       },
       secondary: {
-        main: '#dc004e',
+        main: '#ff0080',
+        light: '#ff4daa',
+        dark: '#cc0066',
+      },
+      background: {
+        default: isDarkMode ? '#0a0e27' : '#f5f7fa',
+        paper: isDarkMode ? '#1a1f3a' : '#ffffff',
       },
     },
     typography: {
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       h4: {
-        fontWeight: 600,
+        fontWeight: 700,
+        letterSpacing: '-0.5px',
+      },
+    },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          contained: {
+            borderRadius: '8px',
+            textTransform: 'none',
+            fontWeight: 600,
+            boxShadow: '0 4px 12px rgba(0, 102, 255, 0.3)',
+            '&:hover': {
+              boxShadow: '0 6px 16px rgba(0, 102, 255, 0.4)',
+            },
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            backgroundImage: 'none',
+            borderRadius: '12px',
+          },
+        },
       },
     },
   });
@@ -163,68 +196,128 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="static" elevation={3}>
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 600 }}>
-            🎓 Student Management System
-          </Typography>
-          <IconButton 
-            sx={{ ml: 1 }} 
-            onClick={() => setIsDarkMode(!isDarkMode)} 
-            color="inherit"
-            title={isDarkMode ? 'Light Mode' : 'Dark Mode'}
-          >
-            {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
-          </IconButton>
-          <IconButton 
-            sx={{ ml: 1 }} 
-            onClick={fetchStudents} 
-            color="inherit"
-            title="Refresh"
-            disabled={loading}
-          >
-            <RefreshIcon />
-          </IconButton>
-          <Button
-            variant="contained"
-            color="secondary"
-            startIcon={<AddIcon />}
-            onClick={() => handleOpenDialog()}
-            sx={{ ml: 2 }}
-          >
-            Add Student
-          </Button>
-        </Toolbar>
-      </AppBar>
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        {loading ? (
-          <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
-            <CircularProgress />
-          </Box>
-        ) : error ? (
-          <Alert severity="error" action={
-            <Button color="inherit" size="small" onClick={fetchStudents}>
-              RETRY
-            </Button>
-          } sx={{ mb: 2 }}>
-            {error}
-          </Alert>
-        ) : students.length === 0 ? (
-          <Paper sx={{ p: 3, textAlign: 'center' }}>
-            <Typography variant="h6" color="textSecondary">
-              No students found. Click "Add Student" to create one.
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <AppBar 
+          position="static" 
+          elevation={4}
+          sx={{
+            background: isDarkMode 
+              ? 'linear-gradient(135deg, #1a1f3a 0%, #2d2e5f 100%)'
+              : 'linear-gradient(135deg, #0066ff 0%, #0052cc 100%)',
+          }}
+        >
+          <Toolbar>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 700, fontSize: '1.3rem' }}>
+              🎓 Student Management System
             </Typography>
-          </Paper>
-        ) : (
-          <Paper elevation={2}>
-            <StudentTable
-              students={students}
-              onEdit={handleOpenDialog}
-              onDelete={handleOpenDeleteDialog}
-            />
-          </Paper>
-        )}
-      </Container>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <IconButton 
+                sx={{ ml: 1 }} 
+                onClick={() => setIsDarkMode(!isDarkMode)} 
+                color="inherit"
+                title={isDarkMode ? 'Light Mode' : 'Dark Mode'}
+              >
+                {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+              </IconButton>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.1, rotate: 180 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+            >
+              <IconButton 
+                sx={{ ml: 1 }} 
+                onClick={fetchStudents} 
+                color="inherit"
+                title="Refresh"
+                disabled={loading}
+              >
+                <RefreshIcon />
+              </IconButton>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button
+                variant="contained"
+                color="secondary"
+                startIcon={<AddIcon />}
+                onClick={() => handleOpenDialog()}
+                sx={{ ml: 2 }}
+              >
+                Add Student
+              </Button>
+            </motion.div>
+          </Toolbar>
+        </AppBar>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            {loading ? (
+              <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, duration: 1 }}
+                >
+                  <CircularProgress />
+                </motion.div>
+              </Box>
+            ) : error ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Alert severity="error" action={
+                  <Button color="inherit" size="small" onClick={fetchStudents}>
+                    RETRY
+                  </Button>
+                } sx={{ mb: 2 }}>
+                  {error}
+                </Alert>
+              </motion.div>
+            ) : students.length === 0 ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Paper sx={{ p: 3, textAlign: 'center' }}>
+                  <Typography variant="h6" color="textSecondary">
+                    No students found. Click "Add Student" to create one.
+                  </Typography>
+                </Paper>
+              </motion.div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4 }}
+              >
+                <Paper elevation={3} sx={{ borderRadius: '12px', overflow: 'hidden' }}>
+                  <StudentTable
+                    students={students}
+                    onEdit={handleOpenDialog}
+                    onDelete={handleOpenDeleteDialog}
+                    loading={loading}
+                  />
+                </Paper>
+              </motion.div>
+            )}
+          </motion.div>
+        </Container>
+      </motion.div>
       <StudentDialog
         open={isDialogOpen}
         onClose={handleCloseDialog}

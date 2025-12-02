@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   Table,
   TableBody,
@@ -22,6 +23,7 @@ interface StudentTableProps {
   students: Student[];
   onEdit: (student: Student) => void;
   onDelete: (student: Student) => void;
+  loading?: boolean;
 }
 
 type OrderType = 'asc' | 'desc';
@@ -130,82 +132,112 @@ const StudentTable: React.FC<StudentTableProps> = ({ students, onEdit, onDelete 
           </TableRow>
         </TableHead>
         <TableBody>
-          {displayedStudents.map((student) => (
-            <TableRow
+          {displayedStudents.map((student, index) => (
+            <motion.tr
               key={student.id || student.roll}
-              hover
-              sx={{
-                '&:hover': {
-                  backgroundColor: '#f9f9f9',
-                },
-              }}
+              component="tr"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: index * 0.05 }}
+              whileHover={{ scale: 1.01 }}
+              as={TableRow}
             >
               <TableCell component="th" scope="row">
-                {student.name}
+                <motion.div
+                  whileHover={{ color: '#0066ff' }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {student.name}
+                </motion.div>
               </TableCell>
               <TableCell>
-                <Box
-                  sx={{
-                    display: 'inline-block',
-                    px: 2,
-                    py: 0.5,
-                    backgroundColor: '#e3f2fd',
-                    borderRadius: '4px',
-                    fontSize: '0.85rem',
-                    fontWeight: 500,
-                  }}
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  {student.branch}
-                </Box>
+                  <Box
+                    sx={{
+                      display: 'inline-block',
+                      px: 2,
+                      py: 0.5,
+                      background: 'linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%)',
+                      borderRadius: '6px',
+                      fontSize: '0.85rem',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {student.branch}
+                  </Box>
+                </motion.div>
               </TableCell>
               <TableCell>{student.roll}</TableCell>
               <TableCell align="right">
-                <Box
-                  sx={{
-                    display: 'inline-block',
-                    minWidth: '50px',
-                    p: 1,
-                    backgroundColor: student.gpa >= 8 ? '#c8e6c9' : '#fff9c4',
-                    borderRadius: '4px',
-                    fontWeight: 600,
-                  }}
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  {student.gpa?.toFixed(1)}
-                </Box>
+                  <Box
+                    sx={{
+                      display: 'inline-block',
+                      minWidth: '50px',
+                      p: 1,
+                      background: student.gpa >= 8 
+                        ? 'linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%)'
+                        : 'linear-gradient(135deg, #fff9c4 0%, #fff59d 100%)',
+                      borderRadius: '6px',
+                      fontWeight: 600,
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                    }}
+                  >
+                    {student.gpa?.toFixed(1)}
+                  </Box>
+                </motion.div>
               </TableCell>
               <TableCell align="center">
                 <Box>
-                  <Tooltip title="Edit Student">
-                    <IconButton
-                      onClick={() => onEdit(student)}
-                      color="primary"
-                      size="small"
-                      sx={{
-                        '&:hover': {
-                          backgroundColor: '#e3f2fd',
-                        },
-                      }}
-                    >
-                      <EditIcon fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Delete Student">
-                    <IconButton
-                      onClick={() => onDelete(student)}
-                      color="error"
-                      size="small"
-                      sx={{
-                        '&:hover': {
-                          backgroundColor: '#ffebee',
-                        },
-                      }}
-                    >
-                      <DeleteIcon fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    style={{ display: 'inline-block' }}
+                  >
+                    <Tooltip title="Edit Student">
+                      <IconButton
+                        onClick={() => onEdit(student)}
+                        color="primary"
+                        size="small"
+                        sx={{
+                          '&:hover': {
+                            backgroundColor: '#e3f2fd',
+                          },
+                        }}
+                      >
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    style={{ display: 'inline-block' }}
+                  >
+                    <Tooltip title="Delete Student">
+                      <IconButton
+                        onClick={() => onDelete(student)}
+                        color="error"
+                        size="small"
+                        sx={{
+                          '&:hover': {
+                            backgroundColor: '#ffebee',
+                          },
+                        }}
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                  </motion.div>
                 </Box>
               </TableCell>
-            </TableRow>
+            </motion.tr>
           ))}
         </TableBody>
       </Table>
